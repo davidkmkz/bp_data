@@ -1,0 +1,12 @@
+dash
+dash-core-components
+dash-html-components
+dash-table
+Flask
+numpy
+pandas
+plotly
+scikit-learn
+sklearn
+gunicorn
+
