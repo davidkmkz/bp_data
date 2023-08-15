@@ -7,23 +7,16 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 import plotly.express as px
 
-df = pd.read_csv("https://buypharmadata.s3.us-west-2.amazonaws.com/train_clean.csv")
+# Data processing
+df = pd.read_csv("train_clean.csv")
 start_date = pd.to_datetime("2023-01-01")
 df['date'] = start_date + pd.to_timedelta(df['day'] - 1, unit='D')
 
-# Read the first dataset from "Pharmacy_Global.csv"
 df_global = pd.read_csv("Pharmacy_Global.csv")
-
-# Convert 'TIME' column to numeric
 df_global['TIME'] = pd.to_numeric(df_global['TIME'])
-
-# Rename 'USD_PER' to 'USD_CAP'
 df_global.rename(columns={'USD_PER': 'USD_CAP'}, inplace=True)
-
-# Add 'MXN_CAP' column by multiplying 'USD_CAP' by 20
 df_global['MXN_CAP'] = df_global['USD_CAP'] * 20
 
-# Read the second dataset from "saleshourly1.csv"
 df_sales_hourly = pd.read_csv("saleshourly.csv")
 df_sales_hourly.rename(columns={
     "ACIDO ACETICO DERIVADOS Y RELACIONADOS": "M01AB",
@@ -36,13 +29,9 @@ df_sales_hourly.rename(columns={
     "ANTIHISTAMINICOS PARA USO SISTEMICO": "R06"
 }, inplace=True)
 
-# Get unique values from the 'LOCATION' column in df_global
 locations = df_global['LOCATION'].unique()
-
-# Get unique values for the time metric
 time_metrics = ['HOUR', 'DAY', 'MONTH', 'YEAR']
 
-# Define the HTML table content
 drug_table_data = {
     "M01AB": "ACIDO ACETICO DERIVADOS y RELACIONADOS",
     "M01AE": "ACIDO PROPIONICO Y DERIVADOS",
@@ -54,7 +43,6 @@ drug_table_data = {
     "R06": "ANTIHISTAMINICOS PARA USO SISTEMICO"
 }
 
-# Define the colors for each row (codes are in order)
 drug_table_colors = [
     '#636EFB',
     '#EF553B',
@@ -70,156 +58,221 @@ drug_table_colors = [
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 server = app.server
 
-# Create the layout
+# Sidebar menu items
+sidebar_items = [
+    {'name': 'Ventas', 'page': 'bar-chart'},
+    {'name': 'Reporte Mensual', 'page': 'line-chart'}
+]
+
+# Define the layout
 app.layout = html.Div(
     style={
         'font-family': 'Arial, sans-serif',
-        'max-width': '800px',
+        'max-width': '100%',
         'margin': 'auto',
-        'padding': '20px'
+        'padding': '20px',
+        'background-color': '#FFEAEA',
+        'display': 'flex',
+        'flex-direction': 'column'
     },
     children=[
-        html.H1(
-            'Gasto en medicamento en MXN per cápita',
-            style={
-                'text-align': 'center',
-                'margin-bottom': '40px'
-            }
-        ),
         html.Div(
-            style={'text-align': 'center'},
+            style={'flex': '1'},
             children=[
-                html.Label(
-                    'Elige un país:',
-                    style={'margin-right': '10px'}
-                ),
-                dcc.Dropdown(
-                    id='location-dropdown',
-                    options=[{'label': location, 'value': location} for location in locations],
-                    value='All',
-                    style={'display': 'inline-block', 'width': '200px'}
-                )
-            ]
-        ),
-        dcc.Graph(
-            id='bar-chart',
-            style={'margin-top': '40px'}
-        ),
-
-        html.H1(
-            'Análisis ventas farmacia USA 24-2019',
-            style={
-                'text-align': 'center',
-                'margin-bottom': '40px'
-            }
-        ),
-        html.Div(
-            style={'text-align': 'center'},
-            children=[
-                html.Label(
-                    'Elige una métrica de tiempo:',
-                    style={'margin-right': '10px'}
-                ),
-                dcc.Dropdown(
-                    id='time-dropdown',
-                    options=[{'label': metric, 'value': metric} for metric in time_metrics],
-                    value='HOUR',
-                    style={'display': 'inline-block', 'width': '200px'}
-                )
-            ]
-        ),
-        dcc.Graph(
-            id='line-chart',
-            style={'margin-top': '40px'}
-        ),
-        
-        # Add the HTML table after the second chart and before the date range filter
-        html.Div(
-            style={
-                'margin-top': '40px',
-                'margin-bottom': '40px',
-                'text-align': 'center'
-            },
-            children=[
-                html.H2('Información de las categorías de medicamentos'),
-                html.Table(
-                    style={
-                        'margin': 'auto',
-                        'border-collapse': 'collapse',
-                        'width': '80%'
-                    },
+                html.Div(
+                    style={'display': 'flex'},
                     children=[
-                        html.Thead(
+                        html.Div(
+                            style={
+                                'background-color': '#ffffff',
+                                'border-radius': '15px',
+                                'padding': '20px',
+                                'flex': '2',
+                                'margin-right': '20px'
+                            },
                             children=[
-                                html.Tr(
+                                html.H1(
+                                    'Gasto en medicamento en MXN per cápita',
+                                    style={
+                                        'text-align': 'center',
+                                        'margin-bottom': '40px'
+                                    }
+                                ),
+                                html.Div(
+                                    style={'text-align': 'center'},
                                     children=[
-                                        html.Th('Código'),
-                                        html.Th('Categoría de Medicamento')
+                                        html.Label(
+                                            'Elige un país:',
+                                            style={'margin-right': '10px'}
+                                        ),
+                                        dcc.Dropdown(
+                                            id='location-dropdown',
+                                            options=[{'label': location, 'value': location} for location in locations],
+                                            value='All',
+                                            style={'display': 'inline-block', 'width': '200px'}
+                                        )
                                     ]
+                                ),
+                                dcc.Graph(
+                                    id='bar-chart',
+                                    style={'margin-top': '40px'}
                                 )
                             ]
                         ),
-                        html.Tbody(
+                        html.Div(
+                            style={
+                                'background-color': '#ffffff',
+                                'border-radius': '15px',
+                                'padding': '20px',
+                                'flex': '1'
+                            },
                             children=[
-                                html.Tr(
+                                html.H1(
+                                    'Análisis ventas farmacia USA 24-2019',
+                                    style={
+                                        'text-align': 'center',
+                                        'margin-bottom': '40px'
+                                    }
+                                ),
+                                html.Div(
+                                    style={'text-align': 'center'},
                                     children=[
-                                        html.Td(
-                                            code,
-                                            style={
-                                                'color': drug_table_colors[i],
-                                                'padding': '8px'
-                                            }
+                                        html.Label(
+                                            'Elige una métrica de tiempo:',
+                                            style={'margin-right': '10px'}
                                         ),
-                                        html.Td(
-                                            category,
-                                            style={
-                                                'color': '#141414',
-                                                'padding': '8px'
-                                            }
+                                        dcc.Dropdown(
+                                            id='time-dropdown',
+                                            options=[{'label': metric, 'value': metric} for metric in time_metrics],
+                                            value='HOUR',
+                                            style={'display': 'inline-block', 'width': '200px'}
                                         )
                                     ]
+                                ),
+                                dcc.Graph(
+                                    id='line-chart',
+                                    style={'margin-top': '40px'}
                                 )
-                                for i, (code, category) in enumerate(drug_table_data.items())
                             ]
+                        )
+                    ]
+                ),
+                html.Div(
+                    style={
+                        'background-color': '#ffffff',
+                        'border-radius': '15px',
+                        'padding': '20px',
+                        'margin-top': '20px'
+                    },
+                    children=[
+                        html.H2('Información de las categorías de medicamentos'),
+                        html.Table(
+                            style={
+                                'margin': 'auto',
+                                'border-collapse': 'collapse',
+                                'width': '80%'
+                            },
+                            children=[
+                                html.Thead(
+                                    children=[
+                                        html.Tr(
+                                            children=[
+                                                html.Th('Código'),
+                                                html.Th('Categoría de Medicamento')
+                                            ]
+                                        )
+                                    ]
+                                ),
+                                html.Tbody(
+                                    children=[
+                                        html.Tr(
+                                            children=[
+                                                html.Td(
+                                                    code,
+                                                    style={
+                                                        'color': drug_table_colors[i],
+                                                        'padding': '8px'
+                                                    }
+                                                ),
+                                                html.Td(
+                                                    category,
+                                                    style={
+                                                        'color': '#141414',
+                                                        'padding': '8px'
+                                                    }
+                                                )
+                                            ]
+                                        )
+                                        for i, (code, category) in enumerate(drug_table_data.items())
+                                    ]
+                                )
+                            ]
+                        )
+                    ]
+                ),
+                html.Div(
+                    style={
+                        'background-color': '#ffffff',
+                        'border-radius': '15px',
+                        'padding': '20px',
+                        'margin-top': '20px'
+                    },
+                    children=[
+                        html.H1(
+                            'Comportamiento e-commerce durante 92 días',
+                            style={
+                                'text-align': 'center',
+                                'margin-bottom': '40px'
+                            }
+                        ),
+                        html.Label('Elige la fecha de inicio:'),
+                        dcc.DatePickerSingle(
+                            id='start-date-picker',
+                            min_date_allowed=df['date'].min(),
+                            max_date_allowed=df['date'].max(),
+                            initial_visible_month=df['date'].min(),
+                            date=df['date'].min()
+                        ),
+                        html.Label('Elige la fecha final:'),
+                        dcc.DatePickerSingle(
+                            id='end-date-picker',
+                            min_date_allowed=df['date'].min(),
+                            max_date_allowed=df['date'].max(),
+                            initial_visible_month=df['date'].max(),
+                            date=df['date'].max()
+                        )
+                    ]
+                ),
+                html.Div(
+                    style={
+                        'background-color': '#ffffff',
+                        'border-radius': '15px',
+                        'padding': '20px',
+                        'margin-top': '20px'
+                    },
+                    children=[
+                        dcc.Graph(
+                            id='metric-comparison',
+                            style={'margin-top': '40px'}
+                        )
+                    ]
+                ),
+                html.Div(
+                    style={
+                        'background-color': '#ffffff',
+                        'border-radius': '15px',
+                        'padding': '20px',
+                        'margin-top': '20px'
+                    },
+                    children=[
+                        dcc.Graph(
+                            id='map',
+                            style={'margin-top': '40px'}
                         )
                     ]
                 )
             ]
-        ),
-
-        # Date range filter for selecting start and end dates
-        html.Div(
-            style={'text-align': 'center'},
-            children=[
-                html.H1(
-            'Comportamiento e-commerce durante 92 días',
-            style={
-                'text-align': 'center',
-                'margin-bottom': '40px'
-            }
-        ),
-                html.Label('Elige la fecha de inicio:'),
-                dcc.DatePickerSingle(
-                    id='start-date-picker',
-                    min_date_allowed=df['date'].min(),
-                    max_date_allowed=df['date'].max(),
-                    initial_visible_month=df['date'].min(),
-                    date=df['date'].min()
-                ),
-                html.Label('Elige la fecha final:'),
-                dcc.DatePickerSingle(
-                    id='end-date-picker',
-                    min_date_allowed=df['date'].min(),
-                    max_date_allowed=df['date'].max(),
-                    initial_visible_month=df['date'].max(),
-                    date=df['date'].max()
-                )
-            ]
-        ),
-        dcc.Graph(
-            id='metric-comparison',
-            style={'margin-top': '40px'}
-        ),
+        )
     ]
 )
 
@@ -300,6 +353,7 @@ def update_line_chart(selected_time_metric):
 # Define the third callback function with date range inputs
 @app.callback(
     dash.dependencies.Output('metric-comparison', 'figure'),
+    dash.dependencies.Output('map', 'figure'),
     dash.dependencies.Input('start-date-picker', 'date'),
     dash.dependencies.Input('end-date-picker', 'date')
 )
@@ -321,8 +375,17 @@ def update_metric_comparison(start_date, end_date):
     # Create the plot using Plotly express
     fig = px.line(grouped_data, x='date', y=['click', 'basket', 'order'],
                   labels={'date': 'Fecha', 'value': 'Total'})
+    
+    mapbox_access_token = "pk.eyJ1IjoiZGF2aWRhYW0iLCJhIjoiY2xkaTN0OGlvMHFpbTNvbGhwbzZjc3lmZSJ9.a2DecEMvPiLlurE98EdRWw"
 
-    return fig
+    px.set_mapbox_access_token(mapbox_access_token)
+
+    ciudades = pd.read_csv("ciudades_final.csv")
+    fig2 = px.scatter_mapbox(ciudades, lat="Latitude", lon="Longitude", color="Población total", size="Población total",
+                  color_continuous_scale=px.colors.sequential.RdPu, size_max=15, zoom=3.3 ,hover_name ="Municipio", center = {'lon': -101.47250681300564, 'lat': 23.12617548093577})
+    
+    return fig, fig2
+
 
 # Run the app
 if __name__ == '__main__':

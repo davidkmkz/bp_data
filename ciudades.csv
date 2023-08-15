@@ -1,0 +1,101 @@
+ID,Estado,Municipio,Población total,Hombres,Mujeres
+1,Baja California,Tijuana,1922523,968740,953783
+2,Ciudad de México,Iztapalapa,1835486,887651,947835
+3,Guanajuato,León,1721215,846673,874542
+4,Puebla,Puebla,1692181,809485,882696
+5,Estado de México,Ecatepec de Morelos,1645352,798549,846803
+6,Chihuahua,Juárez,1512450,756977,755473
+7,Jalisco,Zapopan,1476491,720592,755899
+8,Jalisco,Guadalajara,1385629,666997,718632
+9,Ciudad de México,Gustavo A. Madero,1173351,563874,609477
+10,Nuevo León,Monterrey,1142994,564805,578189
+11,Estado de México,Nezahualcóyotl,1077208,519922,557286
+12,Baja California,Mexicali,1049792,529248,520544
+13,Querétaro,Querétaro,1049777,514589,535188
+14,Sinaloa,Culiacán,1003530,491046,512484
+15,Yucatán,Mérida,995129,479369,515760
+16,Aguascalientes,Aguascalientes,948990,462073,486917
+17,Chihuahua,Chihuahua,937674,457240,480434
+18,Sonora,Hermosillo,936263,467490,468773
+19,San Luis Potosí,San Luis Potosí,911908,440897,471011
+20,Quintana Roo,Benito Juárez,911503,459325,452178
+21,Estado de México,Toluca,910608,439173,471435
+22,Coahuila de Zaragoza,Saltillo,879958,437792,442166
+23,Michoacán de Ocampo,Morelia,849053,407129,441924
+24,Estado de México,Naucalpan de Juárez,834434,402495,431939
+25,Guerrero,Acapulco de Juárez,779566,371794,407772
+26,Ciudad de México,Álvaro Obregón,759137,361007,398130
+27,Jalisco,Tlajomulco de Zúñiga,727750,360342,367408
+28,Coahuila de Zaragoza,Torreón,720848,351753,369095
+29,Estado de México,Chimalhuacán,705193,344571,360622
+30,Tamaulipas,Reynosa,704767,350361,354406
+31,Ciudad de México,Tlalpan,699928,334877,365051
+32,Durango,Durango,688697,335412,353285
+33,Jalisco,San Pedro Tlaquepaque,687127,338844,348283
+34,Tabasco,Centro,683607,330080,353527
+35,Estado de México,Tlalnepantla de Baz,672202,327017,345185
+36,Nuevo León,Apodaca,656464,331513,324951
+37,Nuevo León,Guadalupe,643143,318993,324150
+38,Ciudad de México,Coyoacán,614447,289110,325337
+39,Veracruz de Ignacio de la Llave,Veracruz,607209,287664,319545
+40,Chiapas,Tuxtla Gutiérrez,604147,287524,316623
+41,Guanajuato,Irapuato,592953,290770,302183
+42,Jalisco,Tonalá,569913,281695,288218
+43,Estado de México,Cuautitlán Izcalli,555163,268956,286207
+44,Estado de México,Tecámac,547503,265520,281983
+45,Ciudad de México,Cuauhtémoc,545884,260951,284933
+46,Estado de México,Ixtapaluca,542211,263083,279128
+47,Tamaulipas,Matamoros,541979,267898,274081
+48,Estado de México,Atizapán de Zaragoza,523674,253429,270245
+49,Guanajuato,Celaya,521169,253045,268124
+50,Estado de México,Tultitlán,516341,251638,264703
+51,Sinaloa,Mazatlán,501441,245381,256060
+52,Veracruz de Ignacio de la Llave,Xalapa,488531,226821,261710
+53,Nuevo León,General Escobedo,481213,242161,239052
+54,Nuevo León,Juárez,471523,237717,233806
+55,Sinaloa,Ahome,459310,225316,233994
+56,Baja California,Ensenada,443807,221307,222500
+57,Ciudad de México,Venustiano Carranza,443704,210118,233586
+58,Ciudad de México,Xochimilco,442178,215452,226726
+59,Sonora,Cajeme,436484,214601,221883
+60,Ciudad de México,Benito Juárez,434153,202121,232032
+61,Ciudad de México,Azcapotzalco,432205,204950,227255
+62,Estado de México,Nicolás Romero,430601,209774,220827
+63,Nayarit,Tepic,425924,207092,218832
+64,Tamaulipas,Nuevo Laredo,425058,209442,215616
+65,Ciudad de México,Miguel Hidalgo,414470,195467,219003
+66,Nuevo León,San Nicolás de los Garza,412199,202958,209241
+67,Ciudad de México,Iztacalco,404695,192352,212343
+68,Estado de México,Chalco,400057,193129,206928
+69,Nuevo León,García,397205,200708,196497
+70,Ciudad de México,Tláhuac,392313,190190,202123
+71,Estado de México,Valle de Chalco Solidaridad,391731,190674,201057
+72,Morelos,Cuernavaca,378476,178729,199747
+73,Durango,Gómez Palacio,372750,184537,188213
+74,Michoacán de Ocampo,Uruapan,356786,172310,184476
+75,Chiapas,Tapachula,353706,171610,182096
+76,Baja California Sur,Los Cabos,351111,180944,170167
+77,Tamaulipas,Victoria,349688,169229,180459
+78,Quintana Roo,Solidaridad,333800,170476,163324
+79,San Luis Potosí,Soledad de Graciano Sánchez,332072,161877,170195
+80,Puebla,Tehuacán,327312,154407,172905
+81,Hidalgo,Pachuca de Soto,314331,149559,164772
+82,Veracruz de Ignacio de la Llave,Coatzacoalcos,310698,149139,161559
+83,Nuevo León,Santa Catarina,306322,152617,153705
+84,Estado de México,La Paz,304088,148202,155886
+85,Querétaro,San Juan del Río,297804,145350,152454
+86,Tamaulipas,Tampico,297562,141757,155805
+87,Campeche,Campeche,294077,141555,152522
+88,Estado de México,Coacalco de Berriozábal,293444,141107,152337
+89,Baja California Sur,La Paz,292241,145803,146438
+90,Jalisco,Puerto Vallarta,291839,146187,145652
+91,Sinaloa,Guasave,289370,143018,146352
+92,Estado de México,Huixquilucan,284965,136466,148499
+93,Guerrero,Chilpancingo de los Bravo,283354,134497,148857
+94,Estado de México,Zumpango,280455,136971,143484
+95,Estado de México,Texcoco,277562,134940,142622
+96,Guanajuato,Salamanca,273417,132278,141139
+97,Oaxaca,Oaxaca de Juárez,270955,125852,145103
+98,Tamaulipas,Altamira,269790,133306,136484
+99,Sonora,Nogales,264782,132260,132522
+100,Campeche,Carmen,248845,123043,125802
