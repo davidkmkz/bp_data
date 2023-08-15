@@ -58,20 +58,24 @@ drug_table_colors = [
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
 server = app.server
 
+app.css.append_css({'external_url': '/assets/styles.css'})
+app.server.static_folder = 'assets'
+
 # Sidebar menu items
 sidebar_items = [
     {'name': 'Ventas', 'page': 'bar-chart'},
     {'name': 'Reporte Mensual', 'page': 'line-chart'}
 ]
 
+
 # Define the layout
 app.layout = html.Div(
     style={
         'font-family': 'Arial, sans-serif',
-        'max-width': '100%',
+        'max-width': '1440px',
         'margin': 'auto',
         'padding': '20px',
-        'background-color': '#FFEAEA',
+        'background-color': '#FAFCFD',
         'display': 'flex',
         'flex-direction': 'column'
     },

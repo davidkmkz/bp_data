@@ -1,0 +1,19 @@
+body { 
+    margin: 0;
+    background-color: #141414;
+ }
+
+ #_dash-app-content{
+    background-color: #FAFCFD;
+    container-type: inline-size;
+ }
+
+ @container (min-width: 50ch){.info {grid-column:2}}
+ 
+ .test {
+      background-color: #FAFCFD;
+      border-radius: 15px;
+      padding: 20px;
+      flex: 2;
+      margin-right: 20px
+ }
