@@ -1,6 +1,8 @@
 body { 
     margin: 0;
-    background-color: #141414;
+    background-color: #FAFCFD;
+    font-family: "Nunito";
+
  }
 
  #_dash-app-content{
@@ -8,7 +10,7 @@ body {
     container-type: inline-size;
  }
 
- @container (min-width: 50ch){.info {grid-column:2}}
+ @container (min-width: 10ch){.info {grid-column:2}}
  
  .test {
       background-color: #FAFCFD;
@@ -16,4 +18,32 @@ body {
       padding: 20px;
       flex: 2;
       margin-right: 20px
+ }
+
+ @font-face {
+   font-family: 'Nunito'; 
+   src: url('Nunito-Regular.ttf');
+}
+
+h2{
+   font-size: 1.1em;
+}
+
+td{
+   font-size: 0.8em;
+}
+
+label{
+   font-size: 0.8em;
+}
+
+.divcontent {
+   display: flex;
+   flex-direction: column;
+ }
+@media (min-width: 700px) {
+   .divcontent {
+      
+     flex-direction: row;
+   }
  }

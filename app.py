@@ -71,7 +71,7 @@ sidebar_items = [
 # Define the layout
 app.layout = html.Div(
     style={
-        'font-family': 'Arial, sans-serif',
+        'font-family': 'Nunito',
         'max-width': '1440px',
         'margin': 'auto',
         'padding': '20px',
@@ -79,6 +79,7 @@ app.layout = html.Div(
         'display': 'flex',
         'flex-direction': 'column'
     },
+    className="divcontent",
     children=[
         html.Div(
             style={'flex': '1'},
@@ -91,11 +92,41 @@ app.layout = html.Div(
                                 'background-color': '#ffffff',
                                 'border-radius': '15px',
                                 'padding': '20px',
-                                'flex': '2',
+                                'flex': '1',
                                 'margin-right': '20px'
                             },
                             children=[
-                                html.H1(
+                                html.H2(
+                                    'Ventas por localidad',
+                                    style={
+                                        'text-align': 'center',
+                                        'margin-bottom': '40px'
+                                    }
+                                ),
+                                 html.Div(
+                                    style={
+                                        'background-color': '#ffffff',
+                                        'border-radius': '15px',
+                                        'margin-top': '20px'
+                                    },
+                                    children=[
+                                        dcc.Graph(
+                                            id='map',
+                                            style={'margin-top': '40px'}
+                                        )
+                                    ]
+                                )
+                            ]
+                        ),
+                        html.Div(
+                            style={
+                                'background-color': '#ffffff',
+                                'border-radius': '15px',
+                                'padding': '20px',
+                                'flex': '1'
+                            },
+                            children=[
+                                html.H2(
                                     'Gasto en medicamento en MXN per cápita',
                                     style={
                                         'text-align': 'center',
@@ -120,25 +151,31 @@ app.layout = html.Div(
                                 dcc.Graph(
                                     id='bar-chart',
                                     style={'margin-top': '40px'}
-                                )
+                                ),
                             ]
-                        ),
+                        )
+                    ]
+                ),
+                html.Div(
+                    style={'display': 'flex'},
+                    children=[
                         html.Div(
                             style={
                                 'background-color': '#ffffff',
                                 'border-radius': '15px',
                                 'padding': '20px',
-                                'flex': '1'
+                                'flex': '2',
+                                'margin-right': '20px',
+                                'margin-top': '20px'
                             },
                             children=[
-                                html.H1(
-                                    'Análisis ventas farmacia USA 24-2019',
+                                html.H2(
+                                    'Análisis ventas farmacia USA 24',
                                     style={
                                         'text-align': 'center',
                                         'margin-bottom': '40px'
                                     }
-                                ),
-                                html.Div(
+                                ),html.Div(
                                     style={'text-align': 'center'},
                                     children=[
                                         html.Label(
@@ -158,56 +195,63 @@ app.layout = html.Div(
                                     style={'margin-top': '40px'}
                                 )
                             ]
-                        )
-                    ]
-                ),
-                html.Div(
-                    style={
-                        'background-color': '#ffffff',
-                        'border-radius': '15px',
-                        'padding': '20px',
-                        'margin-top': '20px'
-                    },
-                    children=[
-                        html.H2('Información de las categorías de medicamentos'),
-                        html.Table(
+                        ),
+                        html.Div(
                             style={
-                                'margin': 'auto',
-                                'border-collapse': 'collapse',
-                                'width': '80%'
+                                'background-color': '#ffffff',
+                                'border-radius': '15px',
+                                'padding': '20px',
+                                'flex': '1',
+                                'margin-top': '20px'
                             },
                             children=[
-                                html.Thead(
-                                    children=[
-                                        html.Tr(
-                                            children=[
-                                                html.Th('Código'),
-                                                html.Th('Categoría de Medicamento')
-                                            ]
-                                        )
-                                    ]
+                                html.H2(
+                                    'Información de las categorías de medicamentos',
+                                    style={
+                                        'text-align': 'center',
+                                        'margin-bottom': '40px'
+                                    }
                                 ),
-                                html.Tbody(
+                                html.Table(
+                                    style={
+                                        'margin': 'auto',
+                                        'border-collapse': 'collapse',
+                                        'width': '80%'
+                                    },
                                     children=[
-                                        html.Tr(
+                                        html.Thead(
                                             children=[
-                                                html.Td(
-                                                    code,
-                                                    style={
-                                                        'color': drug_table_colors[i],
-                                                        'padding': '8px'
-                                                    }
-                                                ),
-                                                html.Td(
-                                                    category,
-                                                    style={
-                                                        'color': '#141414',
-                                                        'padding': '8px'
-                                                    }
+                                                html.Tr(
+                                                    children=[
+                                                        html.Th('Código'),
+                                                        html.Th('Categoría de Medicamento')
+                                                    ]
                                                 )
                                             ]
+                                        ),
+                                        html.Tbody(
+                                            children=[
+                                                html.Tr(
+                                                    children=[
+                                                        html.Td(
+                                                            code,
+                                                            style={
+                                                                'color': drug_table_colors[i],
+                                                                'padding': '8px'
+                                                            }
+                                                        ),
+                                                        html.Td(
+                                                            category,
+                                                            style={
+                                                                'color': '#141414',
+                                                                'padding': '8px'
+                                                            }
+                                                        )
+                                                    ]
+                                                )
+                                                for i, (code, category) in enumerate(drug_table_data.items())
+                                            ]
                                         )
-                                        for i, (code, category) in enumerate(drug_table_data.items())
                                     ]
                                 )
                             ]
@@ -222,7 +266,7 @@ app.layout = html.Div(
                         'margin-top': '20px'
                     },
                     children=[
-                        html.H1(
+                        html.H2(
                             'Comportamiento e-commerce durante 92 días',
                             style={
                                 'text-align': 'center',
@@ -244,33 +288,9 @@ app.layout = html.Div(
                             max_date_allowed=df['date'].max(),
                             initial_visible_month=df['date'].max(),
                             date=df['date'].max()
-                        )
-                    ]
-                ),
-                html.Div(
-                    style={
-                        'background-color': '#ffffff',
-                        'border-radius': '15px',
-                        'padding': '20px',
-                        'margin-top': '20px'
-                    },
-                    children=[
+                        ),
                         dcc.Graph(
                             id='metric-comparison',
-                            style={'margin-top': '40px'}
-                        )
-                    ]
-                ),
-                html.Div(
-                    style={
-                        'background-color': '#ffffff',
-                        'border-radius': '15px',
-                        'padding': '20px',
-                        'margin-top': '20px'
-                    },
-                    children=[
-                        dcc.Graph(
-                            id='map',
                             style={'margin-top': '40px'}
                         )
                     ]
